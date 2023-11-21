@@ -1,11 +1,11 @@
-package com.test;
+package com.patent;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.test.model.Inventor;
-import com.test.model.TestModel;
+import com.patent.model.Inventor;
+import com.patent.model.TestModel;
 
 public class TestOracle {
 

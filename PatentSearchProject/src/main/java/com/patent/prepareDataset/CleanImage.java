@@ -1,4 +1,4 @@
-package com.test.prepareDataset;
+package com.patent.prepareDataset;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

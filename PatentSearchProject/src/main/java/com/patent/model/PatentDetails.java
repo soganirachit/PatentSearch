@@ -1,45 +1,50 @@
-package com.test.model;
+package com.patent.model;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 @Entity
-@Table(name = "")
+@Table(name = "Patent_Details")
 public class PatentDetails {
 
 	@Column(name = "INVENTION_TITLE")
 	private String inventionTitle = "";
 
 	@Column(name = "PUBLICATION_NUMBER")
-	private int publicationNumber;
+	private String publicationNumber;
 
 	@Column(name = "PUBLICATION_DATE")
-	private Date PublicationDate;
+	private String PublicationDate;
 
 	@Column(name = "PUBLICATION_TYPE")
 	private String publicationType = "";
 
 	@Id
 	@Column(name = "APPLICATION_NUMBER")
-	private int applicationNumber;
+	private String applicationNumber;
 
 	@Column(name = "APPLICATION_FILING_DATE")
-	private Date applicationFilingDate;
+	private String applicationFilingDate;
 
 	@Column(name = "PRIORITY_NUMBER")
-	private int priorityNumber;
+	private String priorityNumber;
 
 	@Column(name = "PRIORITY_COUNTRY")
 	private String priorityCountry = "";
 
 	@Column(name = "PRIORITY_DATE")
-	private Date priorityDate;
+	private String priorityDate;
 
 	@Column(name = "FIELD_OF_INVENTION")
 	private String fieldOfInvention = "";
@@ -48,11 +53,15 @@ public class PatentDetails {
 	private String classification_IPC = "";
 
 	@ElementCollection
-	@Column(name = "INVENTOR")
+	@JoinTable(name = "Inventor_Details", joinColumns = @JoinColumn(name = "APPLICATION_NUMBER"))
+	@GenericGenerator(name = "hilo-gen", strategy = "hilo")
+	@CollectionId(columns = { @Column(name = "Inventor_Id") }, generator = "", type = @Type(type = "int"))
 	private List<Inventor> inventor;
 
 	@ElementCollection
-	@Column(name = "APPLICANT")
+	@JoinTable(name = "Applicant_Details", joinColumns = @JoinColumn(name = "APPLICATION_NUMBER"))
+	@GenericGenerator(name = "hilo-gen", strategy = "hilo")
+	@CollectionId(columns = { @Column(name = "Applicant_Id") }, generator = "", type = @Type(type = "int"))
 	private List<Applicant> applicant;
 
 	@Column(name = "ABSTRACT_OF_INVENTION")
@@ -65,28 +74,6 @@ public class PatentDetails {
 		super();
 	}
 
-	public PatentDetails(String inventionTitle, int publicationNumber, Date publicationDate, String publicationType,
-			int applicationNumber, Date applicationFilingDate, int priorityNumber, String priorityCountry,
-			Date priorityDate, String fieldOfInvention, String classification_IPC, List<Inventor> inventor,
-			List<Applicant> applicant, String abstractOfInvention, String completeSpecification) {
-		super();
-		this.inventionTitle = inventionTitle;
-		this.publicationNumber = publicationNumber;
-		PublicationDate = publicationDate;
-		this.publicationType = publicationType;
-		this.applicationNumber = applicationNumber;
-		this.applicationFilingDate = applicationFilingDate;
-		this.priorityNumber = priorityNumber;
-		this.priorityCountry = priorityCountry;
-		this.priorityDate = priorityDate;
-		this.fieldOfInvention = fieldOfInvention;
-		this.classification_IPC = classification_IPC;
-		this.inventor = inventor;
-		this.applicant = applicant;
-		this.abstractOfInvention = abstractOfInvention;
-		this.completeSpecification = completeSpecification;
-	}
-
 	public String getInventionTitle() {
 		return inventionTitle;
 	}
@@ -95,19 +82,19 @@ public class PatentDetails {
 		this.inventionTitle = inventionTitle;
 	}
 
-	public int getPublicationNumber() {
+	public String getPublicationNumber() {
 		return publicationNumber;
 	}
 
-	public void setPublicationNumber(int publicationNumber) {
+	public void setPublicationNumber(String publicationNumber) {
 		this.publicationNumber = publicationNumber;
 	}
 
-	public Date getPublicationDate() {
+	public String getPublicationDate() {
 		return PublicationDate;
 	}
 
-	public void setPublicationDate(Date publicationDate) {
+	public void setPublicationDate(String publicationDate) {
 		PublicationDate = publicationDate;
 	}
 
@@ -119,27 +106,27 @@ public class PatentDetails {
 		this.publicationType = publicationType;
 	}
 
-	public int getApplicationNumber() {
+	public String getApplicationNumber() {
 		return applicationNumber;
 	}
 
-	public void setApplicationNumber(int applicationNumber) {
+	public void setApplicationNumber(String applicationNumber) {
 		this.applicationNumber = applicationNumber;
 	}
 
-	public Date getApplicationFilingDate() {
+	public String getApplicationFilingDate() {
 		return applicationFilingDate;
 	}
 
-	public void setApplicationFilingDate(Date applicationFilingDate) {
+	public void setApplicationFilingDate(String applicationFilingDate) {
 		this.applicationFilingDate = applicationFilingDate;
 	}
 
-	public int getPriorityNumber() {
+	public String getPriorityNumber() {
 		return priorityNumber;
 	}
 
-	public void setPriorityNumber(int priorityNumber) {
+	public void setPriorityNumber(String priorityNumber) {
 		this.priorityNumber = priorityNumber;
 	}
 
@@ -151,11 +138,11 @@ public class PatentDetails {
 		this.priorityCountry = priorityCountry;
 	}
 
-	public Date getPriorityDate() {
+	public String getPriorityDate() {
 		return priorityDate;
 	}
 
-	public void setPriorityDate(Date priorityDate) {
+	public void setPriorityDate(String priorityDate) {
 		this.priorityDate = priorityDate;
 	}
 
@@ -207,6 +194,29 @@ public class PatentDetails {
 		this.completeSpecification = completeSpecification;
 	}
 
+	public PatentDetails(String inventionTitle, String publicationNumber, String publicationDate,
+			String publicationType, String applicationNumber, String applicationFilingDate, String priorityNumber,
+			String priorityCountry, String priorityDate, String fieldOfInvention, String classification_IPC,
+			List<Inventor> inventor, List<Applicant> applicant, String abstractOfInvention,
+			String completeSpecification) {
+		super();
+		this.inventionTitle = inventionTitle;
+		this.publicationNumber = publicationNumber;
+		PublicationDate = publicationDate;
+		this.publicationType = publicationType;
+		this.applicationNumber = applicationNumber;
+		this.applicationFilingDate = applicationFilingDate;
+		this.priorityNumber = priorityNumber;
+		this.priorityCountry = priorityCountry;
+		this.priorityDate = priorityDate;
+		this.fieldOfInvention = fieldOfInvention;
+		this.classification_IPC = classification_IPC;
+		this.inventor = inventor;
+		this.applicant = applicant;
+		this.abstractOfInvention = abstractOfInvention;
+		this.completeSpecification = completeSpecification;
+	}
+
 	@Override
 	public String toString() {
 		return "PatentDetails [inventionTitle=" + inventionTitle + ", publicationNumber=" + publicationNumber
@@ -217,6 +227,5 @@ public class PatentDetails {
 				+ ", inventor=" + inventor + ", applicant=" + applicant + ", abstractOfInvention=" + abstractOfInvention
 				+ ", completeSpecification=" + completeSpecification + "]";
 	}
-
 
 }

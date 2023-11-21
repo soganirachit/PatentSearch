@@ -1,20 +1,28 @@
-package com.test.prepareDataset;
+package com.patent.prepareDataset;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-import com.test.model.Inventor;
-import com.test.model.Applicant;
-import com.test.model.PatentDetails;
+import com.patent.model.Applicant;
+import com.patent.model.Inventor;
+import com.patent.model.PatentDetails;
 
 public class MapRowDataToPojo {
 
 	PatentDetails patentDetails = new PatentDetails();
+	SimpleDateFormat formatter;
 	String aplNum = "";
 
-	public void mapData(HtmlTable table) {
+	public MapRowDataToPojo() {
+		super();
+		formatter = new SimpleDateFormat("dd/MM/yyyy");
+	}
+
+	public PatentDetails mapData(HtmlTable table) throws IndexOutOfBoundsException, ParseException {
 		for (int i = 0; i < table.getRows().size(); i++) {
 			if (table.getRow(i).getCells().size() > 0) {
 
@@ -74,7 +82,8 @@ public class MapRowDataToPojo {
 				}
 			}
 		}
-		System.out.println(patentDetails.toString());
+		//System.out.println(patentDetails.toString());
+		return patentDetails;
 	}
 
 	public void parseInventor(HtmlTableRow row, String xPath) {

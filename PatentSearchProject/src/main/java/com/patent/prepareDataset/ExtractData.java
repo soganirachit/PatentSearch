@@ -1,8 +1,9 @@
-package com.test.prepareDataset;
+package com.patent.prepareDataset;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -16,6 +17,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.patent.db.SaveDataToDB;
 
 public class ExtractData {
 
@@ -25,8 +27,10 @@ public class ExtractData {
 	}
 
 	public static void webPageHit() {
+		
 		String url = "https://iprsearch.ipindia.gov.in/PublicSearch/";
 		MapRowDataToPojo mapRowDataToPojo = new MapRowDataToPojo();
+		SaveDataToDB saveDataToDB = new SaveDataToDB();
 		Boolean flag = true;
 		int counter = 0;
 
@@ -36,7 +40,6 @@ public class ExtractData {
 			webClient.getOptions().setDownloadImages(true);
 			webClient.getOptions().setCssEnabled(false);
 
-// this will be removed later
 			HtmlPage page = webClient.getPage(url);
 			HtmlForm form = (HtmlForm) page.getByXPath("//form").get(0);
 
@@ -56,26 +59,13 @@ public class ExtractData {
 
 			String[] appNums = { "10044/DELNP/2015", "10275/CHENP/2013", "1050/DEL/2011" };
 
-//			while (flag & counter < 100) {
 			for (String appNum : appNums) {
 				System.out.println(counter + " attempt to hit the web page.....");
 
-				// paste here again
-
-				// String appNum = "10275/CHENP/2013";
 				HtmlTextInput titleField = form.getInputByName("TextField4");
 				if (!titleField.getValue().equalsIgnoreCase(appNum)) {
 					titleField.type(appNum);
 				}
-
-//				HtmlTextInput abstractField = form.getInputByName("CaptchaText");
-//				if(captcha.length()==6) {
-//					abstractField.type(captcha);
-//				}else {
-//					System.out.println(".....................invalid Captcha");
-//					counter++;
-//					continue;
-//				}
 
 				HtmlInput searchButton = form.getInputByName("submit");
 				HtmlPage page2 = searchButton.click();
@@ -83,8 +73,6 @@ public class ExtractData {
 				flag = page2.asNormalizedText().contains("Invalid captcha");
 				counter++;
 				System.out.println(flag ? ".....................failed" : "......................passed");
-
-				// No cheda chadi for above
 
 				if (!flag) {
 					HtmlButton ApplicationNum = page2.getFirstByXPath("//button[@name='ApplicationNumber']");
@@ -95,7 +83,8 @@ public class ExtractData {
 						HtmlTable table = page3.getFirstByXPath("//*[@id=\"home\"]/table");
 
 						if (table != null) {
-							mapRowDataToPojo.mapData(table);
+							saveDataToDB.saveData(mapRowDataToPojo.mapData(table));
+
 						} else {
 							System.out.println("Table not found.");
 						}
@@ -107,7 +96,8 @@ public class ExtractData {
 				titleField.reset();
 			}
 			scanner.close();
-		} catch (IOException e) {
+			saveDataToDB.commitAndCoseTransaction();
+		} catch (IOException | IndexOutOfBoundsException | ParseException e) {
 			e.printStackTrace();
 		}
 	}

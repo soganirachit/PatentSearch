@@ -1,31 +1,30 @@
-package com.test.model;
+package com.patent.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Applicant {
-
-	@Column(name = "APPLICANT_NAME")
+public class Inventor {
+	@Column(name = "INVENTOR_NAME")
 	private String name = "";
 
-	@Column(name = "APPLICANT_ADDRESS")
+	@Column(name = "INVENTOR_ADDRESS")
 	private String address = "";
 
-	@Column(name = "APPLICANT_COUNTRY")
+	@Column(name = "INVENTOR_COUNTRY")
 	private String country = "";
 
-	@Column(name = "APPLICANT_NATIONALITY")
+	@Column(name = "INVENTOR_NATIONALITY")
 	private String nationality = "";
 
-	@Column(name = "APPLICANT_APPLICATION_NUMBER")
-	private String applicationNumber = "";
+	@Column(name = "INVENTOR_APPLICATION_NUMBER")
+	private String applicationNumber;
 
-	public Applicant() {
+	public Inventor() {
 		super();
 	}
 
-	public Applicant(String name, String address, String country, String nationality, String applicationNumber) {
+	public Inventor(String name, String address, String country, String nationality, String applicationNumber) {
 		super();
 		this.name = name;
 		this.address = address;
@@ -76,7 +75,8 @@ public class Applicant {
 
 	@Override
 	public String toString() {
-		return "Applicant [name=" + name + ", address=" + address + ", country=" + country + ", nationality="
+		return "Inventor [name=" + name + ", address=" + address + ", country=" + country + ", nationality="
 				+ nationality + ", applicationNumber=" + applicationNumber + "]";
 	}
+
 }

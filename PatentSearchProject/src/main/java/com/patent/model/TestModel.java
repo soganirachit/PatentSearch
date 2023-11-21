@@ -1,4 +1,4 @@
-package com.test.model;
+package com.patent.model;
 
 import java.util.ArrayList;
 import java.util.List;
