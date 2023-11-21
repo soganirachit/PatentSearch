@@ -1,0 +1,7 @@
+com\test\TestJavaSpark.class
+com\test\model\PatentDetails.class
+com\test\TestOracle.class
+com\test\model\InventorApllicantDetails.class
+com\test\prepareDataset\CleanImage.class
+com\test\prepareDataset\ExtractData.class
+com\test\prepareDataset\MapRowDataToPojo.class
