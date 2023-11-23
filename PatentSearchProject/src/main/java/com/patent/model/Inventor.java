@@ -17,20 +17,16 @@ public class Inventor {
 	@Column(name = "INVENTOR_NATIONALITY")
 	private String nationality = "";
 
-	@Column(name = "INVENTOR_APPLICATION_NUMBER")
-	private String applicationNumber;
-
 	public Inventor() {
 		super();
 	}
 
-	public Inventor(String name, String address, String country, String nationality, String applicationNumber) {
+	public Inventor(String name, String address, String country, String nationality) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.country = country;
 		this.nationality = nationality;
-		this.applicationNumber = applicationNumber;
 	}
 
 	public String getName() {
@@ -65,18 +61,10 @@ public class Inventor {
 		this.nationality = nationality;
 	}
 
-	public String getApplicationNumber() {
-		return applicationNumber;
-	}
-
-	public void setApplicationNumber(String applicationNumber) {
-		this.applicationNumber = applicationNumber;
-	}
-
 	@Override
 	public String toString() {
 		return "Inventor [name=" + name + ", address=" + address + ", country=" + country + ", nationality="
-				+ nationality + ", applicationNumber=" + applicationNumber + "]";
+				+ nationality + ", applicationNumber=" + "]";
 	}
 
 }

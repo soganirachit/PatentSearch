@@ -13,9 +13,8 @@ import com.patent.model.PatentDetails;
 
 public class MapRowDataToPojo {
 
-	PatentDetails patentDetails = new PatentDetails();
 	SimpleDateFormat formatter;
-	String aplNum = "";
+	PatentDetails patentDetails;
 
 	public MapRowDataToPojo() {
 		super();
@@ -23,6 +22,7 @@ public class MapRowDataToPojo {
 	}
 
 	public PatentDetails mapData(HtmlTable table) throws IndexOutOfBoundsException, ParseException {
+		patentDetails = new PatentDetails();
 		for (int i = 0; i < table.getRows().size(); i++) {
 			if (table.getRow(i).getCells().size() > 0) {
 
@@ -42,8 +42,7 @@ public class MapRowDataToPojo {
 					patentDetails.setPublicationType(table.getRow(i).getCell(1).asNormalizedText());
 					break;
 				case "Application Number":
-					aplNum = table.getRow(i).getCell(1).asNormalizedText();
-					patentDetails.setApplicationNumber(aplNum);
+					patentDetails.setApplicationNumber(table.getRow(i).getCell(1).asNormalizedText());
 					break;
 				case "Application Filing Date":
 					patentDetails.setApplicationFilingDate(table.getRow(i).getCell(1).asNormalizedText());
@@ -82,7 +81,7 @@ public class MapRowDataToPojo {
 				}
 			}
 		}
-		//System.out.println(patentDetails.toString());
+		// System.out.println(patentDetails.toString());
 		return patentDetails;
 	}
 
@@ -105,7 +104,6 @@ public class MapRowDataToPojo {
 				} else if (nestedTable.getCellAt(0, j).asNormalizedText().equalsIgnoreCase("Nationality")) {
 					inventor.setNationality(nestedTable.getCellAt(i, j).asNormalizedText());
 				}
-				inventor.setApplicationNumber(aplNum);
 			}
 			lst.add(inventor);
 		}
@@ -132,7 +130,6 @@ public class MapRowDataToPojo {
 				} else if (nestedTable.getCellAt(0, j).asNormalizedText().equalsIgnoreCase("Nationality")) {
 					applicant.setNationality(nestedTable.getCellAt(i, j).asNormalizedText());
 				}
-				applicant.setApplicationNumber(aplNum);
 			}
 			lst.add(applicant);
 		}

@@ -10,8 +10,9 @@
 		<property name="hbm2ddl.auto">update</property>
 		<property name="show_sql">true</property>
 
-		<mapping class="com.test.model.TestModel" />
-		<mapping class="com.test.model.Inventor" />
+		<mapping class="com.patent.model.PatentDetails" />
+		<mapping class="com.patent.model.Inventor" />
+		<mapping class="com.patent.model.Applicant" />
 
 	</session-factory>
 </hibernate-configuration>

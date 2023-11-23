@@ -1,5 +1,6 @@
 package com.patent.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -18,33 +19,33 @@ import org.hibernate.annotations.Type;
 @Table(name = "Patent_Details")
 public class PatentDetails {
 
-	@Column(name = "INVENTION_TITLE")
+	@Column(name = "INVENTION_TITLE",columnDefinition="CLOB")
 	private String inventionTitle = "";
 
 	@Column(name = "PUBLICATION_NUMBER")
-	private String publicationNumber;
+	private String publicationNumber = "";
 
 	@Column(name = "PUBLICATION_DATE")
-	private String PublicationDate;
+	private String PublicationDate = "";
 
 	@Column(name = "PUBLICATION_TYPE")
 	private String publicationType = "";
 
 	@Id
 	@Column(name = "APPLICATION_NUMBER")
-	private String applicationNumber;
+	private String applicationNumber = "";
 
 	@Column(name = "APPLICATION_FILING_DATE")
-	private String applicationFilingDate;
+	private String applicationFilingDate = "";
 
 	@Column(name = "PRIORITY_NUMBER")
-	private String priorityNumber;
+	private String priorityNumber = "";
 
 	@Column(name = "PRIORITY_COUNTRY")
 	private String priorityCountry = "";
 
 	@Column(name = "PRIORITY_DATE")
-	private String priorityDate;
+	private String priorityDate = "";
 
 	@Column(name = "FIELD_OF_INVENTION")
 	private String fieldOfInvention = "";
@@ -53,21 +54,21 @@ public class PatentDetails {
 	private String classification_IPC = "";
 
 	@ElementCollection
-	@JoinTable(name = "Inventor_Details", joinColumns = @JoinColumn(name = "APPLICATION_NUMBER"))
-	@GenericGenerator(name = "hilo-gen", strategy = "hilo")
-	@CollectionId(columns = { @Column(name = "Inventor_Id") }, generator = "", type = @Type(type = "int"))
-	private List<Inventor> inventor;
+	@JoinTable(name = "Inventor_Details", joinColumns = @JoinColumn(name = "INVENTOR_APPLICATION_NUMBER"))
+	@GenericGenerator(name = "incr", strategy = "increment")
+	@CollectionId(columns = { @Column(name = "Inventor_Id") }, generator = "incr", type = @Type(type = "int"))
+	private List<Inventor> inventor = new ArrayList<>();
 
 	@ElementCollection
-	@JoinTable(name = "Applicant_Details", joinColumns = @JoinColumn(name = "APPLICATION_NUMBER"))
-	@GenericGenerator(name = "hilo-gen", strategy = "hilo")
-	@CollectionId(columns = { @Column(name = "Applicant_Id") }, generator = "", type = @Type(type = "int"))
-	private List<Applicant> applicant;
+	@JoinTable(name = "Applicant_Details", joinColumns = @JoinColumn(name = "APPLICANT_APPLICATION_NUMBER"))
+	@GenericGenerator(name = "incr", strategy = "increment")
+	@CollectionId(columns = { @Column(name = "Applicant_Id") }, generator = "incr", type = @Type(type = "int"))
+	private List<Applicant> applicant = new ArrayList<>();
 
-	@Column(name = "ABSTRACT_OF_INVENTION")
+	@Column(name = "ABSTRACT_OF_INVENTION",columnDefinition="CLOB")
 	private String abstractOfInvention = "";
 
-	@Column(name = "COMPLETE_SPECIFICATION")
+	@Column(name = "COMPLETE_SPECIFICATION",columnDefinition="CLOB")
 	private String completeSpecification = "";
 
 	public PatentDetails() {

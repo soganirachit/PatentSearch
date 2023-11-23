@@ -18,20 +18,16 @@ public class Applicant {
 	@Column(name = "APPLICANT_NATIONALITY")
 	private String nationality = "";
 
-	@Column(name = "APPLICANT_APPLICATION_NUMBER")
-	private String applicationNumber;
-
 	public Applicant() {
 		super();
 	}
 
-	public Applicant(String name, String address, String country, String nationality, String applicationNumber) {
+	public Applicant(String name, String address, String country, String nationality) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.country = country;
 		this.nationality = nationality;
-		this.applicationNumber = applicationNumber;
 	}
 
 	public String getName() {
@@ -66,17 +62,9 @@ public class Applicant {
 		this.nationality = nationality;
 	}
 
-	public String getApplicationNumber() {
-		return applicationNumber;
-	}
-
-	public void setApplicationNumber(String applicationNumber) {
-		this.applicationNumber = applicationNumber;
-	}
-
 	@Override
 	public String toString() {
 		return "Applicant [name=" + name + ", address=" + address + ", country=" + country + ", nationality="
-				+ nationality + ", applicationNumber=" + applicationNumber + "]";
+				+ nationality + ", applicationNumber=" + "]";
 	}
 }
