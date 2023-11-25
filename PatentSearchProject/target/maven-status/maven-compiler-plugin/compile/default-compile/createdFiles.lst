@@ -4,8 +4,8 @@ com\patent\model\PatentDetails.class
 com\patent\prepareDataset\MapRowDataToPojo.class
 com\patent\prepareDataset\CleanImage.class
 com\patent\model\Applicant.class
-com\patent\util\ReadWriteCsv.class
 com\patent\model\Inventor.class
 com\patent\prepareDataset\ExtractData.class
 com\patent\model\TestModel.class
+com\patent\util\ReadWriteXls.class
 com\patent\TestJavaSpark.class

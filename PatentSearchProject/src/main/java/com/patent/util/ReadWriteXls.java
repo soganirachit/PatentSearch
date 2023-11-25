@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -16,21 +15,18 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ReadWriteXls {
 
-	private static Workbook workbook;
-	private static Cell cell;
 	private static Row row;
 	private List<String> applNums;
 
 	public ReadWriteXls() {
 		super();
-		workbook = null;
 	}
 
 	public List<String> getapplNums(String filePath) throws IOException {
 		applNums = new ArrayList<>();
 		FileInputStream fileInputStream = new FileInputStream(filePath);
 		System.out.println("Reading xls file to get appNums");
-		workbook = new XSSFWorkbook(fileInputStream);
+		Workbook workbook = new XSSFWorkbook(fileInputStream);
 		Sheet sheet = workbook.getSheetAt(0);
 
 		for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {

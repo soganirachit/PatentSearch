@@ -1,0 +1,11 @@
+com\patent\userInteraction\configuration\Swagger2Configuration.class
+com\patent\userInteraction\dto\PatentDetailsProjection.class
+com\patent\userInteraction\repository\PatentRepository.class
+com\patent\userInteraction\dto\Inventor.class
+com\patent\userInteraction\controller\PatentWebController.class
+com\patent\userInteraction\dto\OutputData.class
+com\patent\userInteraction\dto\Applicant.class
+com\patent\userInteraction\dto\InputData.class
+com\patent\userInteraction\UserInteractionMain.class
+com\patent\userInteraction\dto\PatentDetails.class
+com\patent\userInteraction\service\PatentService.class

@@ -3,6 +3,9 @@ package com.patent.prepareDataset;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryUsage;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -29,16 +32,10 @@ import com.patent.util.ReadWriteXls;
 public class ExtractData {
 
 	private static String url = "https://iprsearch.ipindia.gov.in/PublicSearch/";
-	private static MapRowDataToPojo mapRowDataToPojo = new MapRowDataToPojo();
-	private static Boolean flag = true;
-	private static SaveDataToDB saveDataToDB = new SaveDataToDB();
-	private static Map<String, PatentDetails> pdMap = new HashMap<>();
-	private static PatentDetails pd;
-	private static HtmlTextInput titleField;
-	private static ReadWriteXls readWriteXls = new ReadWriteXls();
 	private static Map<String, String> status = new HashMap<>();
 
 	public static void main(String[] args) {
+		ReadWriteXls readWriteXls = new ReadWriteXls();
 		try {
 			List<String> applNums = readWriteXls.getapplNums("C:\\Users\\rachit sogani\\Downloads\\AplNumFile.xlsx");
 			System.out.println("appNums is : " + applNums.subList(0, 100));
@@ -72,6 +69,12 @@ public class ExtractData {
 		HtmlButton ApplicationNum;
 		HtmlPage page3;
 		HtmlTable table;
+		HtmlTextInput titleField;
+		Boolean flag = true;
+		PatentDetails pd;
+		Map<String, PatentDetails> pdMap = new HashMap<>();
+		MapRowDataToPojo mapRowDataToPojo = new MapRowDataToPojo();
+		SaveDataToDB saveDataToDB = new SaveDataToDB();
 
 		fillCaptcha(form);
 
@@ -119,7 +122,7 @@ public class ExtractData {
 				System.out.println("Attempting to save 50 records");
 				saveDataToDB.saveData(pdMap, status);
 				pdMap = new HashMap<>();
-				System.gc();
+				heapMonitor();
 			}
 		}
 		saveDataToDB.commitAndCoseTransaction();
@@ -142,4 +145,18 @@ public class ExtractData {
 		abstractField.type(captcha);
 		scanner.close();
 	}
+
+	public static void heapMonitor() {
+		// Get the MemoryMXBean
+		MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+
+		// Get the heap memory usage
+		MemoryUsage heapMemoryUsage = memoryBean.getHeapMemoryUsage();
+
+		// Print heap memory usage information
+
+		System.out.println("Max Heap Size: " + heapMemoryUsage.getMax() / (1024 * 1024) + " MB");
+		System.out.println("Used Heap Size: " + heapMemoryUsage.getUsed() / (1024 * 1024) + " MB");
+	}
+
 }

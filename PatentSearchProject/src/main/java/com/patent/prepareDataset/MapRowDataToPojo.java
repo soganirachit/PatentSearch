@@ -1,7 +1,6 @@
 package com.patent.prepareDataset;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +12,10 @@ import com.patent.model.PatentDetails;
 
 public class MapRowDataToPojo {
 
-	SimpleDateFormat formatter;
 	PatentDetails patentDetails;
 
 	public MapRowDataToPojo() {
 		super();
-		formatter = new SimpleDateFormat("dd/MM/yyyy");
 	}
 
 	public PatentDetails mapData(HtmlTable table) throws IndexOutOfBoundsException, ParseException {
