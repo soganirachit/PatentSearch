@@ -19,7 +19,7 @@ import org.hibernate.annotations.Type;
 @Table(name = "Patent_Details")
 public class PatentDetails {
 
-	@Column(name = "INVENTION_TITLE",columnDefinition="CLOB")
+	@Column(name = "INVENTION_TITLE", columnDefinition = "CLOB")
 	private String inventionTitle = "";
 
 	@Column(name = "PUBLICATION_NUMBER")
@@ -65,10 +65,10 @@ public class PatentDetails {
 	@CollectionId(columns = { @Column(name = "Applicant_Id") }, generator = "incr", type = @Type(type = "int"))
 	private List<Applicant> applicant = new ArrayList<>();
 
-	@Column(name = "ABSTRACT_OF_INVENTION",columnDefinition="CLOB")
+	@Column(name = "ABSTRACT_OF_INVENTION", columnDefinition = "CLOB")
 	private String abstractOfInvention = "";
 
-	@Column(name = "COMPLETE_SPECIFICATION",columnDefinition="CLOB")
+	@Column(name = "COMPLETE_SPECIFICATION", columnDefinition = "CLOB")
 	private String completeSpecification = "";
 
 	public PatentDetails() {

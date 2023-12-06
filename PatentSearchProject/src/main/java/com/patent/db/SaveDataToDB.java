@@ -20,6 +20,7 @@ public class SaveDataToDB {
 		super();
 		sf = new Configuration().configure().buildSessionFactory();
 		session = sf.openSession();
+		session.beginTransaction();
 	}
 
 	public void saveData(Map<String, PatentDetails> pdMap, Map<String, String> status)
@@ -27,7 +28,7 @@ public class SaveDataToDB {
 
 		PatentDetails pd = null;
 		try {
-			session.beginTransaction();
+
 			for (String appNum : pdMap.keySet()) {
 				try {
 					pd = pdMap.get(appNum);
@@ -49,16 +50,17 @@ public class SaveDataToDB {
 				System.out.println("\n" + "\n");
 			}
 			session.flush();
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			session.clear();
-			System.out.println("Inserted 50 records successfully ................");
+			System.out.println("Inserted "+pdMap.size()+" records successfully ................");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+//			System.out.println(e.getMessage());
 		}
 	}
 
 	public boolean commitAndCoseTransaction() {
-		// session.getTransaction().commit();
+		session.getTransaction().commit();
 		if (session != null && session.isOpen()) {
 			session.close();
 		}
